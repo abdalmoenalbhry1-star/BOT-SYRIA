@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BOT SYRIA</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Tahoma,
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(circle at top right, #172554 0, transparent 35%),
+                radial-gradient(circle at bottom left, #0f3d35 0, transparent 30%),
+                #070b14;
+
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 32px));
+            margin: auto;
+        }
+
+        header {
+            padding: 22px 0;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #2563eb, #14b8a6);
+            box-shadow: 0 10px 35px rgba(37,99,235,.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,.06);
+            color: white;
+        }
+
+        .hero {
+            padding: 75px 0 45px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            padding: 8px 13px;
+            border: 1px solid rgba(96,165,250,.25);
+            background: rgba(37,99,235,.1);
+            color: #93c5fd;
+            border-radius: 999px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        h1 {
+            font-size: clamp(38px, 6vw, 68px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+
+        .gradient {
+            background: linear-gradient(90deg, #60a5fa, #2dd4bf);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            color: #94a3b8;
+            font-size: 18px;
+            line-height: 1.9;
+            max-width: 650px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border-radius: 13px;
+            padding: 14px 22px;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,.1);
+            color: white;
+            background: rgba(255,255,255,.06);
+        }
+
+        .btn-primary {
+            border: 0;
+            background: linear-gradient(135deg, #2563eb, #0d9488);
+            box-shadow: 0 12px 35px rgba(37,99,235,.22);
+        }
+
+        .hero-card {
+            border: 1px solid rgba(255,255,255,.09);
+            background: rgba(15,23,42,.72);
+            backdrop-filter: blur(18px);
+            border-radius: 26px;
+            padding: 25px;
+            box-shadow: 0 25px 80px rgba(0,0,0,.25);
+        }
+
+        .balance {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .amount {
+            font-size: 42px;
+            font-weight: 900;
+            margin: 10px 0 25px;
+        }
+
+        .amount span {
+            color: #2dd4bf;
+            font-size: 17px;
+        }
+
+        .mini-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .stat {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.06);
+            padding: 17px;
+            border-radius: 16px;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 22px;
+        }
+
+        .stat small {
+            color: #94a3b8;
+        }
+
+        section {
+            padding: 45px 0;
+        }
+
+        .section-title {
+            margin-bottom: 25px;
+        }
+
+        .section-title h2 {
+            font-size: 30px;
+        }
+
+        .section-title p {
+            color: #64748b;
+            margin-top: 8px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 17px;
+        }
+
+        .feature {
+            padding: 25px;
+            border-radius: 20px;
+            background: rgba(15,23,42,.65);
+            border: 1px solid rgba(255,255,255,.07);
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            margin-bottom: 9px;
+        }
+
+        .feature p {
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        .tasks {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 17px;
+        }
+
+        .task {
+            background: rgba(15,23,42,.7);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 20px;
+            padding: 22px;
+        }
+
+        .task-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .task h3 {
+            margin-bottom: 8px;
+        }
+
+        .task p {
+            color: #94a3b8;
+            line-height: 1.6;
+            min-height: 52px;
+        }
+
+        .reward {
+            color: #2dd4bf;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .task-btn {
+            width: 100%;
+            margin-top: 18px;
+        }
+
+        footer {
+            border-top: 1px solid rgba(255,255,255,.07);
+            margin-top: 45px;
+            padding: 30px 0;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 850px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features,
+            .tasks {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 45px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <span>BOT SYRIA</span>
+            </div>
+
+            <div class="nav-links">
+                <a href="#tasks">المهام</a>
+                <a href="#features">المميزات</a>
+                <a href="#balance">الرصيد</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-grid">
+
+            <div>
+                <span class="badge">منصة المهام والربح الرقمية</span>
+
+                <h1>
+                    اربح من
+                    <span class="gradient">المهام البسيطة</span>
+                </h1>
+
+                <p>
+                    نفّذ المهام المتاحة، أرسل إثباتك،
+                    تابع رصيدك وأرباحك، واطلب السحب
+                    من مكان واحد.
+                </p>
+
+                <div class="actions">
+                    <a class="btn btn-primary" href="#tasks">
+                        ابدأ المهام
+                    </a>
+
+                    <a class="btn" href="#features">
+                        اكتشف المنصة
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-card" id="balance">
+                <div class="balance">رصيدك الحالي</div>
+
+                <div class="amount">
+                    0
+                    <span>نقطة</span>
+                </div>
+
+                <div class="mini-stats">
+                    <div class="stat">
+                        <strong>0</strong>
+                        <small>مهمة مكتملة</small>
+                    </div>
+
+                    <div class="stat">
+                        <strong>0</strong>
+                        <small>إجمالي الأرباح</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="features">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>كل شيء بمكان واحد</h2>
+            <p>منصة بسيطة وسريعة لإدارة أرباحك ومهامك.</p>
+        </div>
+
+        <div class="features">
+
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <h3>مهام متنوعة</h3>
+                <p>
+                    تصفح المهام المتاحة واختر ما يناسبك
+                    ونفذها بسهولة.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">💰</div>
+                <h3>رصيد واضح</h3>
+                <p>
+                    تابع رصيدك وأرباحك وسجل العمليات
+                    من حسابك.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🔐</div>
+                <h3>نظام آمن</h3>
+                <p>
+                    حسابك وعملياتك مرتبطة بنظام مركزي
+                    وقاعدة بيانات واحدة.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="tasks">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>المهام المتاحة</h2>
+            <p>ستظهر هنا المهام التي يضيفها فريق الإدارة.</p>
+        </div>
+
+        <div class="tasks">
+
+            <article class="task">
+                <div class="task-top">
+                    <h3>مهمة تجريبية</h3>
+                    <span class="reward">+100</span>
+                </div>
+
+                <p>
+                    هذه مهمة تجريبية لعرض شكل المهمة
+                    داخل المنصة.
+                </p>
+
+                <a class="btn btn-primary task-btn" href="#">
+                    تنفيذ المهمة
+                </a>
+            </article>
+
+            <article class="task">
+                <div class="task-top">
+                    <h3>مهمة جديدة</h3>
+                    <span class="reward">+250</span>
+                </div>
+
+                <p>
+                    ستتم تعبئة بيانات المهام تلقائياً
+                    من قاعدة البيانات لاحقاً.
+                </p>
+
+                <a class="btn btn-primary task-btn" href="#">
+                    تنفيذ المهمة
+                </a>
+            </article>
+
+            <article class="task">
+                <div class="task-top">
+                    <h3>مهمة قادمة</h3>
+                    <span class="reward">+500</span>
+                </div>
+
+                <p>
+                    هذا المكان سيعرض المهام الحقيقية
+                    بعد ربط الـ API.
+                </p>
+
+                <a class="btn btn-primary task-btn" href="#">
+                    تنفيذ المهمة
+                </a>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <div class="container">
+        © 2026 BOT SYRIA — جميع الحقوق محفوظة
+    </div>
+</footer>
+
+</body>
+</html>

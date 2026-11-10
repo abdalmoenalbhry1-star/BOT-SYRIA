@@ -1,4 +1,5 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
+from pathlib import Path
 from database import init_db
 
 app = Flask(__name__)
@@ -13,10 +14,10 @@ def health():
 
 @app.get("/")
 def home():
-    return jsonify({
-        "name": "BOT SYRIA",
-        "status": "online"
-    })
+    return send_from_directory(
+        Path(__file__).with_name("web"),
+        "index.html"
+    )
 
 
 if __name__ == "__main__":
