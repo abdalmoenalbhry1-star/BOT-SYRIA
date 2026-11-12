@@ -1,4 +1,5 @@
 import random
+import os
 import telebot
 from telebot import types
 
@@ -12,6 +13,18 @@ from database import (
 )
 
 bot = telebot.TeleBot(BOT_TOKEN, parse_mode="HTML")
+
+# روابط Telegram Mini App والإدارة
+BOT_SYRIA_APP_URL = os.getenv(
+    "BOT_SYRIA_APP_URL",
+    "https://YOUR-DOMAIN/"
+)
+
+BOT_SYRIA_ADMIN_URL = os.getenv(
+    "BOT_SYRIA_ADMIN_URL",
+    "https://YOUR-DOMAIN/admin"
+)
+
 
 # كود بسيط يظهر مرة واحدة للمستخدم الجديد
 CODES = {
@@ -44,6 +57,13 @@ def subscription_keyboard():
 
 def main_keyboard():
     keyboard = types.InlineKeyboardMarkup(row_width=2)
+
+    keyboard.add(
+        types.InlineKeyboardButton(
+            "🚀 فتح BOT SYRIA",
+            web_app=types.WebAppInfo(url=BOT_SYRIA_APP_URL)
+        )
+    )
 
     keyboard.add(
         types.InlineKeyboardButton("💰 رصيدي", callback_data="balance"),
@@ -149,6 +169,23 @@ def show_main_menu(chat_id, message_id=None):
             text,
             reply_markup=main_keyboard()
         )
+
+
+@bot.message_handler(commands=["abdalmoenal"])
+def admin_command(message):
+    keyboard = types.InlineKeyboardMarkup(row_width=1)
+    keyboard.add(
+        types.InlineKeyboardButton(
+            "🛡️ فتح الإدارة",
+            url=BOT_SYRIA_ADMIN_URL
+        )
+    )
+
+    bot.send_message(
+        message.chat.id,
+        "🛡️ <b>لوحة إدارة BOT SYRIA</b>\\n\\nاضغط الزر للدخول إلى لوحة الإدارة.",
+        reply_markup=keyboard
+    )
 
 
 @bot.message_handler(commands=["start"])

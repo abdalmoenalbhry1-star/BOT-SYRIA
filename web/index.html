@@ -498,5 +498,116 @@
     </div>
 </footer>
 
+
+<script id="LIVE_TASKS_API">
+async function loadLiveTasks() {
+    try {
+        const response = await fetch("/api/tasks", {
+            cache: "no-store"
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || data.status !== "ok") {
+            console.error("Tasks API error:", data);
+            return;
+        }
+
+        const tasks = data.tasks || [];
+
+        console.log("BOT SYRIA tasks:", tasks);
+
+        /*
+         * هذا الجزء لا يغيّر التصميم الحالي.
+         * إذا كان الموقع يحتوي على عنصر tasksContainer
+         * فسيعرض المهام داخله.
+         */
+        const container =
+            document.getElementById("tasksContainer") ||
+            document.querySelector("[data-tasks]");
+
+        if (!container) {
+            console.warn("لم يتم العثور على حاوية المهام في الصفحة.");
+            return;
+        }
+
+        if (!tasks.length) {
+            container.innerHTML = `
+                <div style="padding:20px;text-align:center;">
+                    لا توجد مهام متاحة حالياً
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = tasks.map(task => `
+            <div style="
+                padding:16px;
+                margin-bottom:12px;
+                border-radius:16px;
+                background:rgba(255,255,255,.05);
+                border:1px solid rgba(255,255,255,.08);
+            ">
+                <h3>${escapeTaskHtml(task.title)}</h3>
+
+                <p style="margin:8px 0;">
+                    ${escapeTaskHtml(task.description || "")}
+                </p>
+
+                <div style="margin:8px 0;">
+                    💰 المكافأة: ${task.reward}
+                </div>
+
+                <div style="margin:8px 0;">
+                    👥 المقاعد: ${task.seats}
+                </div>
+
+                ${
+                    task.link
+                    ? `<a href="${escapeTaskAttr(task.link)}"
+                         target="_blank"
+                         rel="noopener"
+                         style="display:inline-block;margin-top:8px;">
+                         فتح المهمة
+                       </a>`
+                    : ""
+                }
+            </div>
+        `).join("");
+
+    } catch (error) {
+        console.error("تعذر تحميل المهام:", error);
+    }
+}
+
+function escapeTaskHtml(value) {
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+function escapeTaskAttr(value) {
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+}
+
+loadLiveTasks();
+
+setInterval(loadLiveTasks, 15000);
+</script>
+
+
+<section id="tasksContainer" data-tasks style="
+    max-width:900px;
+    margin:30px auto;
+    padding:20px;
+"></section>
+
 </body>
 </html>

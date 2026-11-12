@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOT SYRIA - الإدارة</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            margin-bottom: 14px;
+            border: 1px solid #475569;
+            border-radius: 10px;
+            background: #0f172a;
+            color: white;
+        }
+
+        button {
+            border: 0;
+            border-radius: 10px;
+            padding: 12px 18px;
+            cursor: pointer;
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+        }
+
+        button.delete {
+            background: #dc2626;
+        }
+
+        .task {
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 12px;
+        }
+
+        .task small {
+            color: #94a3b8;
+        }
+
+        #message {
+            margin-top: 12px;
+            color: #38bdf8;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>🔐 BOT SYRIA</h1>
+    <div class="subtitle">لوحة إدارة المهام</div>
+
+    <div class="card">
+        <h2>➕ إضافة مهمة</h2>
+
+        <input id="title" placeholder="عنوان المهمة">
+        <textarea id="description" placeholder="وصف المهمة"></textarea>
+        <input id="link" placeholder="رابط المهمة">
+        <input id="reward" type="number" placeholder="المكافأة">
+        <input id="seats" type="number" placeholder="عدد المقاعد">
+
+        <button onclick="addTask()">إضافة المهمة</button>
+
+        <div id="message"></div>
+    </div>
+
+    <div class="card">
+        <h2>📋 المهام الحالية</h2>
+        <div id="tasks">جاري التحميل...</div>
+    </div>
+
+</div>
+
+<script>
+async function loadTasks() {
+    const response = await fetch("/api/tasks");
+    const data = await response.json();
+
+    const container = document.getElementById("tasks");
+
+    if (!data.tasks.length) {
+        container.innerHTML = "<p>لا توجد مهام حاليًا.</p>";
+        return;
+    }
+
+    container.innerHTML = data.tasks.map(task => `
+        <div class="task">
+            <h3>${escapeHtml(task.title)}</h3>
+            <p>${escapeHtml(task.description || "")}</p>
+            <small>
+                المكافأة: ${task.reward}
+                | المقاعد: ${task.seats}
+            </small>
+        </div>
+    `).join("");
+}
+
+async function addTask() {
+    const title = document.getElementById("title").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const link = document.getElementById("link").value.trim();
+    const reward = Number(document.getElementById("reward").value);
+    const seats = Number(document.getElementById("seats").value);
+
+    if (!title || !reward || !seats) {
+        document.getElementById("message").textContent =
+            "أدخل العنوان والمكافأة والمقاعد.";
+        return;
+    }
+
+    const response = await fetch("/api/admin/tasks", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            title,
+            description,
+            link,
+            reward,
+            seats
+        })
+    });
+
+    const data = await response.json();
+
+    document.getElementById("message").textContent =
+        data.message || "تمت العملية.";
+
+    if (response.ok) {
+        document.getElementById("title").value = "";
+        document.getElementById("description").value = "";
+        document.getElementById("link").value = "";
+        document.getElementById("reward").value = "";
+        document.getElementById("seats").value = "";
+        loadTasks();
+    }
+}
+
+function escapeHtml(value) {
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+loadTasks();
+</script>
+
+</body>
+</html>
