@@ -1,9 +1,0 @@
-config.py
-*.db
-*.db-shm
-*.db-wal
-backups/
-logs/
-__pycache__/
-*.pyc
-.env
