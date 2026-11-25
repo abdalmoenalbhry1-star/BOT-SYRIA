@@ -2,12 +2,266 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
   <title>BOT SYRIA</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #07111f;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    button {
+      font-family: inherit;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .app {
+      max-width: 520px;
+      margin: auto;
+      min-height: 100vh;
+      padding-bottom: 90px;
+    }
+
+    .top {
+      padding: 22px 18px 10px;
+    }
+
+    .brand {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .welcome {
+      margin-top: 5px;
+      color: #9caec5;
+      font-size: 14px;
+    }
+
+    .balance {
+      margin: 18px;
+      padding: 22px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #12365d, #0b1d34);
+      border: 1px solid #214b78;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    }
+
+    .balance-label {
+      color: #aebfd4;
+      font-size: 14px;
+    }
+
+    .balance-value {
+      margin-top: 8px;
+      font-size: 34px;
+      font-weight: 900;
+    }
+
+    .currency {
+      font-size: 15px;
+      color: #8fc5ff;
+      margin-right: 5px;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 0 18px;
+    }
+
+    .action {
+      background: #101f33;
+      border: 1px solid #1d3654;
+      color: white;
+      border-radius: 18px;
+      padding: 18px 10px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .action span {
+      display: block;
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
+
+    .section {
+      padding: 24px 18px 0;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .task {
+      background: #0d1b2c;
+      border: 1px solid #1b324e;
+      border-radius: 18px;
+      padding: 17px;
+      margin-bottom: 10px;
+    }
+
+    .task-title {
+      font-weight: 800;
+    }
+
+    .task-info {
+      margin-top: 7px;
+      color: #9fb1c7;
+      font-size: 13px;
+    }
+
+    .task-button {
+      width: 100%;
+      margin-top: 13px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #1677ff;
+      color: white;
+      font-weight: 800;
+    }
+
+    .bottom {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(520px, 100%);
+      background: rgba(7, 17, 31, 0.96);
+      border-top: 1px solid #1a3049;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 9px 8px calc(9px + env(safe-area-inset-bottom));
+      backdrop-filter: blur(10px);
+    }
+
+    .nav {
+      background: transparent;
+      color: #8498b1;
+      font-size: 11px;
+      padding: 7px 3px;
+    }
+
+    .nav span {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    .nav.active {
+      color: #4da3ff;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>BOT SYRIA 🇸🇾</h1>
-  <p>موقع المستخدم يعمل بنجاح.</p>
-  <a href="../admin/">فتح لوحة الإدارة</a>
+
+<div class="app">
+
+  <div class="top">
+    <div class="brand">BOT SYRIA 🇸🇾</div>
+    <div class="welcome">أهلاً بك في منصة الربح 👋</div>
+  </div>
+
+  <div class="balance">
+    <div class="balance-label">رصيدك الحالي</div>
+    <div class="balance-value">
+      0 <span class="currency">ل.س</span>
+    </div>
+  </div>
+
+  <div class="actions">
+
+    <button class="action" onclick="showMessage('قسم المهام قيد التجهيز')">
+      <span>📋</span>
+      المهام
+    </button>
+
+    <button class="action" onclick="showMessage('قسم الدعوات قيد التجهيز')">
+      <span>🎁</span>
+      الدعوات
+    </button>
+
+    <button class="action" onclick="showMessage('قسم السحب قيد التجهيز')">
+      <span>💸</span>
+      السحب
+    </button>
+
+    <button class="action" onclick="showMessage('صفحة الحساب قيد التجهيز')">
+      <span>👤</span>
+      حسابي
+    </button>
+
+  </div>
+
+  <div class="section">
+
+    <div class="section-title">🔥 مهام اليوم</div>
+
+    <div class="task">
+      <div class="task-title">لا توجد مهام حاليًا</div>
+      <div class="task-info">
+        ستظهر المهام المتاحة هنا عندما يضيفها المدير.
+      </div>
+      <button class="task-button" onclick="showMessage('لا توجد مهام متاحة الآن')">
+        تحديث المهام
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="bottom">
+
+  <button class="nav active" onclick="scrollToTop()">
+    <span>🏠</span>
+    الرئيسية
+  </button>
+
+  <button class="nav" onclick="showMessage('قسم المهام قيد التجهيز')">
+    <span>📋</span>
+    المهام
+  </button>
+
+  <button class="nav" onclick="showMessage('قسم السحب قيد التجهيز')">
+    <span>💸</span>
+    السحب
+  </button>
+
+  <button class="nav" onclick="showMessage('قسم الحساب قيد التجهيز')">
+    <span>👤</span>
+    حسابي
+  </button>
+
+</div>
+
+<script>
+  function showMessage(message) {
+    alert(message);
+  }
+
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+</script>
+
 </body>
 </html>
