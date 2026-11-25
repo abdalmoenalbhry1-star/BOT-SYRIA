@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -174,6 +175,7 @@
 
   <div class="top">
     <div class="brand">BOT SYRIA 🇸🇾</div>
+    <div id="telegram-user" class="welcome">جاري تحميل حسابك...</div>
     <div class="welcome">أهلاً بك في منصة الربح 👋</div>
   </div>
 
@@ -251,6 +253,29 @@
 </div>
 
 <script>
+  const tg = window.Telegram?.WebApp;
+
+  if (tg) {
+    tg.ready();
+    tg.expand();
+
+    const user = tg.initDataUnsafe?.user;
+
+    if (user) {
+      const firstName = user.first_name || "المستخدم";
+      const username = user.username ? "@" + user.username : "";
+
+      document.getElementById("telegram-user").textContent =
+        `أهلاً ${firstName} ${username}`;
+    } else {
+      document.getElementById("telegram-user").textContent =
+        "افتح التطبيق من Telegram";
+    }
+  } else {
+    document.getElementById("telegram-user").textContent =
+      "افتح التطبيق من Telegram";
+  }
+
   function showMessage(message) {
     alert(message);
   }
