@@ -267,9 +267,11 @@
 
       document.getElementById("telegram-user").textContent =
         `أهلاً ${firstName} ${username}`;
+
+      console.log("Telegram user detected:", user.id);
     } else {
       document.getElementById("telegram-user").textContent =
-        "افتح التطبيق من Telegram";
+        "تعذر قراءة حساب Telegram";
     }
   } else {
     document.getElementById("telegram-user").textContent =
